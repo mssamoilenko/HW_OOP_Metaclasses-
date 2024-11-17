@@ -1,5 +1,5 @@
-#task1
 from datetime import datetime
+#task1
 class CreationTimeMeta(type):
     def __call__(cls, *args, **kwargs):
         instance = super().__call__(*args, **kwargs)
@@ -44,10 +44,8 @@ except AttributeError as e:
 
 #task4
 class RestrictedInheritanceMeta(type):
-    forbidden_bases = (object,)
-
     def __init__(cls, name, bases, dct):
-        if any(issubclass(base, RestrictedInheritanceMeta) for base in bases):
+        if RestrictedInheritanceMeta in [base.__class__ for base in bases]:
             raise TypeError(f"Неможливо наслідувати від забороненого класу")
         super().__init__(name, bases, dct)
 
@@ -62,3 +60,5 @@ try:
         pass
 except TypeError as e:
     print(e)
+
+
